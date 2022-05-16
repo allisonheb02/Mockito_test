@@ -69,11 +69,16 @@ class LibraryUnitTests {
         val mockBookService = Mockito.mock(BookService::class.java)
         Mockito.`when`(mockBookService.myBook(1)).thenReturn(100)
         Mockito.`when`(mockBookService.lookUpTitle(100)).thenReturn("Project Hail Mary")
+        Mockito.`when`(mockBookService.myBook(2)).thenReturn(90)
+        Mockito.`when`(mockBookService.lookUpTitle(90)).thenReturn("The Martian")
 
         val manager = LibraryManager(mockBookService)
         val bookTitle = manager.whatBook(1)
+        val secondBookTitle = manager.whatBook(2)
         Mockito.verify(mockBookService).lookUpTitle(100)
         Mockito.verify(mockBookService).myBook(1)
+        Mockito.verify(mockBookService).myBook(2)
         assertEquals("Project Hail Mary", bookTitle)
+        assertEquals("The Martian", secondBookTitle)
     }
 }
